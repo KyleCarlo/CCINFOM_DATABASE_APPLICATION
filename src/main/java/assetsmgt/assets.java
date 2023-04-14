@@ -112,6 +112,44 @@ public class assets {
         }
     }
 
+    public int updateAsset(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM assets WHERE hoa_name='hoa_name' AND asset_id='asset_id'");
+            ResultSet rs = stmt.executeQuery();
+
+            stmt = conn.prepareStatement("INSERT INTO assets (`hoa_name`, `asset_id`, `asset_name`, `asset_description`, `acquisition_date`, `forrent`, `asset_value`, `type_asset`, `status`, `loc_lattitude`, `loc_longiture`, `enclosing_asset`) " +
+                    "VALUES (?, ?, ?, ?, DATE(?), ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, hoa_name);
+            stmt.setInt(2, asset_id);
+            stmt.setString(3, asset_name);
+            stmt.setString(4, asset_description);
+            stmt.setString(5, acquisition_date);
+            stmt.setInt(6, forrent);
+            stmt.setDouble(7, asset_value);
+            stmt.setString(8, type_asset);
+            stmt.setString(9, status);
+            stmt.setDouble(10, loc_lattitude);
+            stmt.setDouble(11, loc_longiture);
+            if (enclosing_asset == -1) {
+                stmt.setNull(12, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(12, enclosing_asset);
+            }
+            stmt.executeUpdate();
+
+            System.out.println("Entered2");
+            stmt.close();
+            conn.close();
+            return 1;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+
     public static void main(String args[]){
         assets a = new assets();
         a.hoa_name = "Test HOA";
