@@ -37,9 +37,14 @@ public class assets {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM assets WHERE asset_id = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE assets SET enclosing_asset = NULL WHERE enclosing_asset = ?");
             stmt.setInt(1, asset_id);
             stmt.executeUpdate();
+
+            stmt = conn.prepareStatement("DELETE FROM assets WHERE asset_id = ?");
+            stmt.setInt(1, asset_id);
+            stmt.executeUpdate();
+
             stmt.close();
             conn.close();
             return 1;
