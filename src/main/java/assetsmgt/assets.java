@@ -223,8 +223,6 @@ public class assets {
                 stmt.setInt(12, enclosing_asset);
             }
             stmt.executeUpdate();
-
-            System.out.println("Entered2");
             stmt.close();
             conn.close();
             return 1;
