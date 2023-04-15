@@ -22,6 +22,39 @@ public class assets {
     public ArrayList<String> asset_nameList = new ArrayList<>();
     public assets(){}
 
+    public int updateAsset(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE assets SET asset_name = ?, asset_description = ?, acquisition_date = DATE(?), forrent = ?, asset_value = ?, type_asset = ?, status = ?, loc_lattitude = ?, loc_longiture = ?, hoa_name = ?, enclosing_asset = ? WHERE asset_id = ?");
+            stmt.setString(1, asset_name);
+            stmt.setString(2, asset_description);
+            stmt.setString(3, acquisition_date);
+            stmt.setInt(4, forrent);
+            stmt.setDouble(5, asset_value);
+            stmt.setString(6, type_asset);
+            stmt.setString(7, status);
+            stmt.setDouble(8, loc_lattitude);
+            stmt.setDouble(9, loc_longiture);
+            stmt.setString(10, hoa_name);
+            if (enclosing_asset == -1) {
+                stmt.setNull(11, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(11, enclosing_asset);
+            }
+            stmt.setInt(12, asset_id);
+            stmt.executeUpdate();
+
+            System.out.println("Entered2");
+            stmt.close();
+            conn.close();
+            return 1;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
     public int getAssetList(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -57,6 +90,7 @@ public class assets {
             PreparedStatement stmt = conn.prepareStatement("SELECT hoa_name FROM hoa");
             ResultSet rs = stmt.executeQuery();
 
+            hoa_nameList.clear();
             while(rs.next()){
                 hoa_name = rs.getString("hoa_name");
                 hoa_nameList.add(hoa_name);

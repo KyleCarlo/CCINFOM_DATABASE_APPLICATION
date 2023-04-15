@@ -9,6 +9,8 @@
 <html>
 <head>
     <title>Register an Asset</title>
+</head>
+<body>
     <form action="registerAsset_processing.jsp">
         HOA Assigned:
         <jsp:useBean id='A' class='assetsmgt.assets' scope='session'/>
@@ -44,9 +46,9 @@
             <option value="X">Disposed</option>
         </select><br>
         Coordinates<br>
-        Latitude: <input type="number" id="loc_lattitude" name="loc_lattitude" min="-90" max="90" step=".01"><br>
-        Longitude: <input type="number" id="loc_longiture" name="loc_longiture" min="-180" max="180" step=".01"><br>
-        <select id="asset_id" name="asset_id">
+        Latitude: <input type="number" id="loc_lattitude" name="loc_lattitude" min="-90" max="90" step=".0001"><br>
+        Longitude: <input type="number" id="loc_longiture" name="loc_longiture" min="-180" max="180" step=".0001"><br>
+        Enclosed Asset: <select id="asset_id" name="asset_id">
         <%
             A.getAssetList();
             for (int i = 0; i < A.asset_idList.size() + 1; i++){
@@ -62,8 +64,6 @@
         </select><br>
         <input type="submit" value="Submit Asset">
     </form>
-</head>
-<body>
 
 </body>
 </html>
