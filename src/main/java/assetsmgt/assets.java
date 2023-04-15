@@ -22,6 +22,17 @@ public class assets {
     public ArrayList<String> asset_nameList = new ArrayList<>();
     public assets(){}
 
+    // Asset Activity
+    public String activity_date;
+    public String activity_description;
+    public String tent_start;
+    public String tent_end;
+    public String act_start;
+    public String act_end;
+    public int cost;
+    // public String status;
+    public String auth_officer;
+
     public int getAssetList(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -145,6 +156,46 @@ public class assets {
             conn.close();
             return 1;
         }catch(Exception e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    public int recordAssetActivity(){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement("SELECT aa.*, at. ornum, p.lastname, p.firstname" +
+                                                                "FROM asset_activity aa" +
+                                                                "    JOIN asset_transactions at ON aa.asset_id=at.asset_id" +
+                                                                "    JOIN officer o ON at.trans_position=o.position" +
+                                                                "    JOIN homeowner ho ON o.ho_id=ho.ho_id" +
+                                                                "    JOIN people p ON ho.ho_id=p.peopleid" +
+                                                                ";");
+            ResultSet rs = stmt.executeQuery();
+
+            stmt = conn.prepareStatement("INSERT INTO assets (`hoa_name`, `asset_id`, `activity_date`, `activity_description`, `auth_officer`, `tent_start`, `tent_end`,`act_start`, `act_end`, `cost`, `status`) " +
+                    "VALUES (?, ?, DATE(?), ?, ?, DATE(?), DATE(?), DATE(?), DATE(?), ?, ?)");
+
+            stmt.setString(1, hoa_name);
+            stmt.setInt(2, asset_id);
+            stmt.setString(3, activity_date);
+            stmt.setString(4, activity_description);
+            stmt.setString(5, auth_officer);
+            stmt.setString(6, tent_start);
+            stmt.setString(7, tent_end);
+            stmt.setString(8, act_start);
+            stmt.setString(9, act_end);
+            stmt.setInt(10, cost);
+            stmt.setString(11, status);
+
+            stmt.executeUpdate();
+
+            System.out.println("Entered2");
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch(Exception e) {
             System.out.println(e.getMessage());
             return 0;
         }

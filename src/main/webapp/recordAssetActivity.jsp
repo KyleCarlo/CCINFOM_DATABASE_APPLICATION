@@ -51,7 +51,7 @@
       Activity Cost: <input type="number" id="cost" name="cost"><br>
       Official Receipt: <input type="number" id="ornum" name="ornum"><br>
       Activity Status:
-      <select id="type_asset" name="type_asset">
+      <select id="status" name="status">
         <option value="S">Scheduled</option>
         <option value="O">Ongoing</option>
         <option value="C">Completed</option>
