@@ -25,7 +25,7 @@
             <th>HOA Name</th>
             <th>Enclosing Asset</th>
         </tr>
-        <jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
+        <jsp:useBean id="A" class="assetsmgt.Assets" scope="session"/>
         <%
             A.getDeletableList();
             for(int i = 0; i < A.asset_idList.size(); i++){

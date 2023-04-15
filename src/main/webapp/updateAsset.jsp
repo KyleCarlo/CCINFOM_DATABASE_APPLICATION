@@ -13,7 +13,7 @@
 <body>
     <form action="updateAsset_processing.jsp">
         Asset to be changed: <select id="asset_id" name="asset_id">
-        <jsp:useBean id='A' class='assetsmgt.assets' scope='session'/>
+        <jsp:useBean id='A' class='assetsmgt.Assets' scope='session'/>
         <%
             A.getAssetList();
             A.getHoaList();

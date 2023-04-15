@@ -11,7 +11,7 @@
     <title>Register an Asset</title>
 </head>
 <body>
-    <jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
+    <jsp:useBean id="A" class="assetsmgt.Assets" scope="session"/>
     <%
         try {
             String asset_name = request.getParameter("asset_name");

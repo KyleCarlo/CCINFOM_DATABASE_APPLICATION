@@ -13,7 +13,7 @@
 <body>
     <form action="registerAsset_processing.jsp">
         HOA Assigned:
-        <jsp:useBean id='A' class='assetsmgt.assets' scope='session'/>
+        <jsp:useBean id='A' class='assetsmgt.Assets' scope='session'/>
         <%
             A.getHoaList();
             for (int i = 0; i < A.hoa_nameList.size(); i++){

@@ -11,7 +11,7 @@
     <title>Update an Asset</title>
 </head>
 <body>
-    <jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
+    <jsp:useBean id="A" class="assetsmgt.Assets" scope="session"/>
     <%
         try {
             String hoa_name = request.getParameter("hoa_name");

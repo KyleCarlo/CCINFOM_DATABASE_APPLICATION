@@ -11,7 +11,7 @@
     <title>Delete an Asset</title>
 </head>
 <body>
-    <jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
+    <jsp:useBean id="A" class="assetsmgt.Assets" scope="session"/>
     <%
         int result = 1;
         try {
