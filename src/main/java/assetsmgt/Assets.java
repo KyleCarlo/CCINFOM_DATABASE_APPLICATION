@@ -31,7 +31,22 @@ public class Assets {
     public ArrayList<Integer> enclosing_assetList = new ArrayList<>();
 
     public Assets(){}
-
+    public int disposeAsset(){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE assets SET status = 'X' WHERE asset_id = ?");
+            stmt.setInt(1, asset_id);
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
     public int getDisposableList(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");

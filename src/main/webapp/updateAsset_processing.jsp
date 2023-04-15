@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Update an Asset</title>
+    <title>Asset Update</title>
 </head>
 <body>
     <jsp:useBean id="A" class="assetsmgt.Assets" scope="session"/>

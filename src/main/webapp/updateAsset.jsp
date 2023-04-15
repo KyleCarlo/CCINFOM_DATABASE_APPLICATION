@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Update an Asset</title>
+    <title>Asset Update</title>
 </head>
 <body>
     <form action="updateAsset_processing.jsp">
@@ -53,7 +53,6 @@
             <option value="D">Deteriorated</option>
             <option value="P">For Repair</option>
             <option value="S">For Disposal</option>
-            <option value="X">Disposed</option>
         </select><br>
         Coordinates<br>
         Latitude: <input type="number" id="loc_lattitude" name="loc_lattitude" min="-90" max="90" step=".0001"><br>
@@ -73,7 +72,7 @@
         }
         %>
     </select><br><br>
-        <input type="submit" value="Submit Asset">
+        <input type="submit" value="Update Asset">
     </form>
 </body>
 </html>

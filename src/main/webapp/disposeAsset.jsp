@@ -8,9 +8,75 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Dispose an Asset</title>
+    <title>Asset Disposal</title>
 </head>
 <body>
-
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Asset Name</th>
+        <th>Asset Description</th>
+        <th>Asset Date Acquired</th>
+        <th>Asset Value</th>
+        <th>Asset Type</th>
+        <th>Asset Location</th>
+        <th>HOA Name</th>
+        <th>Enclosing Asset</th>
+    </tr>
+    <jsp:useBean id="A" class="assetsmgt.Assets" scope="session"/>
+    <%
+        A.getDisposableList();
+        for(int i = 0; i < A.asset_idList.size(); i++){
+    %>
+    <tr>
+        <td><%=A.asset_idList.get(i)%></td>
+        <td><%=A.asset_nameList.get(i)%></td>
+        <td><%=A.asset_descriptionList.get(i)%></td>
+        <td><%=A.acquisition_dateList.get(i)%></td>
+        <td><%=A.asset_valueList.get(i)%></td>
+        <td><% String asset_type = null;
+            switch(A.type_assetList.get(i)) {
+                case "P":
+                    asset_type = "Property";
+                    break;
+                case "E":
+                    asset_type = "Equipment";
+                    break;
+                case "F":
+                    asset_type = "Furniture & Fixtures";
+                    break;
+                case "O":
+                    asset_type = "Other";
+                    break;
+            }
+        %><%=asset_type%></td>
+        <td><%=A.loc_lattitudeList.get(i)%>, <%=A.loc_longitureList.get(i)%></td>
+        <td><%=A.hoa_nameList.get(i)%></td>
+        <td><%
+            String enclosing_asset = null;
+            if(A.enclosing_assetList.get(i) != 0) {
+                enclosing_asset = Integer.toString(A.enclosing_assetList.get(i));
+            } else {
+                enclosing_asset = "N/A";
+            }
+        %>
+            <%=enclosing_asset%></td>
+    </tr>
+    <%
+        }
+    %>
+</table><br>
+<form action="disposeAsset_processing.jsp">
+    Select Asset ID to Delete: <select id="delete_asset_id" name="delete_asset_id">
+    <%
+        for(int i = 0; i < A.asset_idList.size(); i++){
+    %>
+    <option value="<%=A.asset_idList.get(i)%>"><%=A.asset_idList.get(i)%></option>
+    <%
+        }
+    %>
+</select> <br>
+    <input type="submit" value="Dispose Asset">
+</form>
 </body>
 </html>
