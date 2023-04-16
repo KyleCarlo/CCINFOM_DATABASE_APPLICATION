@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Asset Update</title>
+    <link rel="stylesheet" type="text/css" href="styles/success_style.css"/>
 </head>
 <body>
     <jsp:useBean id="A" class="assetsmgt.Assets" scope="session"/>
