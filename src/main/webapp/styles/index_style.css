@@ -1,0 +1,57 @@
+
+@font-face {
+    font-family: 'Barbie Font';
+    src: url('barbie.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: lightskyblue;
+    color: #333;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    text-shadow: 3px 2px 0px white;
+    color: #480082;
+    font-size: 70px;
+    font-weight: 900;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'Barbie Font';
+}
+
+a {
+    display: block;
+    width: 300px;
+    margin: 0 auto 20px;
+    padding: 20px 0;
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 3px 3px 6px #333;
+}
+
+a:nth-child(odd) {
+    background-color: #FFD700;
+}
+
+a:nth-child(even) {
+    background-color: #E0218a;
+}
+
+a:hover {
+    background-color: #FFDA29;
+    color: #0B0B45;
+}
+
+a:active {
+    box-shadow: none;
+    transform: translateY(3px);
+}
