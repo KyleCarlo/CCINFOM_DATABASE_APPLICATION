@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Complete Asset Activity</title>
-    <link rel="stylesheet" type="text/css" href="styles/completeAssetActivity_style_style.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/completeAssetActivity_style.css"/>
 </head>
 <body>
     <table>

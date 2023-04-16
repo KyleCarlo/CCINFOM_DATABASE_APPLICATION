@@ -15,6 +15,9 @@
     <form action="recordAssetActivity_processing.jsp">
         <jsp:useBean id='Assets' class='assetsmgt.Assets' scope='session'/>
         <jsp:useBean id='Transaction' class='actsmgt.ActTrans' scope='session'/>
+
+        <h1>Record Asset Activity</h1>
+
         Select Asset:<select id="asset_id" name="asset_id">
         <%
             Assets.getAssetList();
