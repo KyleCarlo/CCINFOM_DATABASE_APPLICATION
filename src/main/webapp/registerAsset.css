@@ -1,0 +1,96 @@
+
+@font-face {
+    font-family: 'Barbie Font';
+    src: url('barbie.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid hotpink;
+    border-radius: 10px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+label {
+    display: block;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"] {
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+select {
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+option {
+    font-size: 18px;
+}
+
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    background-color: hotpink;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #FF69B4;
+}
+
+h1 {
+    text-align: center;
+    color: hotpink;
+    font-size: 70px;
+    font-weight: 900;
+    text-shadow: black;
+    text-outline: black 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'Barbie Font';
+}
+
+option[value="-1"] {
+    font-style: italic;
+    color: #ccc;
+}
+
+option[value="-1"]:hover {
+    cursor: not-allowed;
+}
+
+#status {
+    margin-top: 20px;
+}
+
+#asset_id {
+    margin-top: 20px;
+}
