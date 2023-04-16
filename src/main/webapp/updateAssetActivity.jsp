@@ -9,13 +9,16 @@
 <html>
 <head>
     <title>Update an Asset Activity</title>
+    <link rel="stylesheet" type="text/css" href="updateAssetActivity_style.css">
+
 </head>
 <body>
 
 <jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
 
-<form>
-    action="updateAssetActivity_processing.jsp"
+<form action="updateAssetActivity_processing.jsp">
+
+    <h1>Update an Asset Activity</h1>
 
     Select Asset:
     <select id="asset_id" name="asset_id">

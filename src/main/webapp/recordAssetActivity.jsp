@@ -9,12 +9,14 @@
 <html>
 <head>
     <title> Record an Asset Activity </title>
+    <link rel="stylesheet" type="text/css" href="recordAssetActivity_style.css">
+
 </head>
 <body>
 
-    <form>
+    <form action="recordAssetActivity_processing.jsp">
 
-      action="recordAssetActivity_processing.jsp"
+      <h1>Record an Asset Activity</h1>
 
       HOA Assigned:
       <jsp:useBean id='A' class='assetsmgt.assets' scope='session'/>

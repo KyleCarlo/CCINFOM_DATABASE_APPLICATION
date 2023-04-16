@@ -9,13 +9,18 @@
 <html>
 <head>
     <title> Delete an Asset Activity </title>
+    <link rel="stylesheet" type="text/css" href="deleteAssetActivity_style.css">
+
 </head>
 <body>
 
-<form>
+<form action="deleteAssetActivity_processing.jsp">
 
-    action="deleteAssetActivity_processing.jsp"
+
     <jsp:useBean id='A' class='assetsmgt.assets' scope='session'/>
+
+    <h1>Delete an Asset Activity </h1>
+
     Select Asset to Delete:<select id="asset_id" name="asset_id">
     <%
         A.getAssetList();

@@ -9,7 +9,12 @@
 <html>
 <head>
     <title>Register an Asset</title>
+    <link rel="stylesheet" type="text/css" href="registerAsset_style.css">
+
     <form action="registerAsset_processing.jsp">
+
+        <h1>Register an Asset</h1>
+        
         HOA Assigned:
         <jsp:useBean id='A' class='assetsmgt.assets' scope='session'/>
         <%

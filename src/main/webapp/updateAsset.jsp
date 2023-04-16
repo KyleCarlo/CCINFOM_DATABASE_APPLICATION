@@ -8,8 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Update an Asset</title>
+  <title>Update an Asset</title>
+
+  <link rel="stylesheet" type="text/css" href="updateAsset_style.css">
+
   <form action="updateAsset_processing.jsp">
+
+    <h1>Update an Asset </h1>
+
     Asset to be changed: <br>
     HOA Assigned:
     <jsp:useBean id='A' class='assetsmgt.assets' scope='session'/>

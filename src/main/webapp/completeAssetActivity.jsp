@@ -10,12 +10,14 @@
 <html>
 <head>
     <title>Complete Asset Activity</title>
+    <link rel="stylesheet" type="text/css" href="completeAssetActivity_style.css">
+
 </head>
 <body>
 
-<form>
+<form action="completeAssetActivity_processing.jsp">
 
-    action="completeAssetActivity_processing.jsp"
+    <h1>Complete Asset Activity</h1>
 
     Select Asset:
     <jsp:useBean id='A' class='assetsmgt.assets' scope='session'/>
