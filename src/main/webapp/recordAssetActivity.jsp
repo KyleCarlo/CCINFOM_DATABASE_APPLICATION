@@ -12,14 +12,14 @@
 </head>
 <body>
     <form action="recordAssetActivity_processing.jsp">
-        <jsp:useBean id='Activity' class='assetsmgt.Assets' scope='session'/>
+        <jsp:useBean id='Assets' class='assetsmgt.Assets' scope='session'/>
         <jsp:useBean id='Transaction' class='actsmgt.ActTrans' scope='session'/>
         Select Asset:<select id="asset_id" name="asset_id">
         <%
-            Activity.getAssetList();
-            for (int i = 0; i < Activity.asset_idList.size(); i++){
+            Assets.getAssetList();
+            for (int i = 0; i < Assets.asset_idList.size(); i++){
         %>
-                <option value="<%=Activity.asset_idList.get(i)%>"> <%=Activity.asset_idList.get(i)%>-<%=Activity.asset_nameList.get(i)%> </option>
+                <option value="<%=Assets.asset_idList.get(i)%>"> <%=Assets.asset_idList.get(i)%>-<%=Assets.asset_nameList.get(i)%> </option>
         <%
             }
         %>
@@ -46,7 +46,7 @@
             for (int i = 0; i < Transaction.trans_hoidList.size(); i++){
         %>
             <option value="<%=Transaction.trans_hoidList.get(i)%>,<%=Transaction.trans_positionList.get(i)%>,<%=Transaction.trans_electiondateList.get(i)%>">
-                <%=Transaction.trans_hoidList.get(i)%>-<%=Transaction.trans_positionList.get(i)%>
+                <%=Transaction.trans_hoidList.get(i)%> | <%=Transaction.trans_positionList.get(i)%>
             </option>
         <%
             }

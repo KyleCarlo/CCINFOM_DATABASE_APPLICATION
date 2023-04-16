@@ -50,11 +50,11 @@
         Longitude: <input type="number" id="loc_longiture" name="loc_longiture" min="-180" max="180" step=".0001"><br>
         Enclosed Asset: <select id="asset_id" name="asset_id">
         <%
-            A.getAssetList();
+            A.getPropertyList();
             for (int i = 0; i < A.asset_idList.size() + 1; i++){
-                if (i != A.asset_idList.size()){
+                if (i != 0){
         %>
-                <option value="<%=A.asset_idList.get(i)%>"> <%=A.asset_idList.get(i)%>-<%=A.asset_nameList.get(i)%> </option>
+                <option value="<%=A.asset_idList.get(i-1)%>"> <%=A.asset_idList.get(i-1)%> | <%=A.asset_nameList.get(i-1)%> </option>
         <%
                 }   else { %>
                 <option value="-1"> None </option>

@@ -61,7 +61,7 @@
         for (int i = 0; i < Activity.asset_idList.size(); i++){
     %>
             <option value="<%=Activity.asset_idList.get(i)%>,<%=Activity.activity_dateList.get(i)%>">
-                <%=Activity.asset_idList.get(i)%> - <%=Activity.activity_dateList.get(i)%>
+                <%=Activity.asset_idList.get(i)%> | <%=Activity.activity_dateList.get(i)%>
             </option>
     <%
         }

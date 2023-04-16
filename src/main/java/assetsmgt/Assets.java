@@ -30,7 +30,35 @@ public class Assets {
     public ArrayList<String> hoa_nameList = new ArrayList<>();
     public ArrayList<Integer> enclosing_assetList = new ArrayList<>();
 
-    public Assets() {
+    public Assets() {}
+
+    public int getPropertyList() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT asset_id, asset_name\n" +
+                    "FROM assets\n" +
+                    "WHERE type_asset = 'P';");
+            ResultSet rs = stmt.executeQuery();
+            asset_idList.clear();
+            asset_nameList.clear();
+            while (rs.next()) {
+                int asset_id = rs.getInt("asset_id");
+                String asset_name = rs.getString("asset_name");
+                asset_idList.add(asset_id);
+                asset_nameList.add(asset_name);
+            }
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
     }
 
     public int disposeAsset() {

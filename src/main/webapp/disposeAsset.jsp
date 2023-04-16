@@ -67,7 +67,7 @@
     %>
 </table><br>
 <form action="disposeAsset_processing.jsp">
-    Select Asset ID to Delete: <select id="delete_asset_id" name="delete_asset_id">
+    Select Asset ID to Dispose: <select id="delete_asset_id" name="delete_asset_id">
     <%
         for(int i = 0; i < A.asset_idList.size(); i++){
     %>

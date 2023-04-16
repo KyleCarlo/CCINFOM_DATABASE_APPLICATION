@@ -19,7 +19,7 @@
             A.getHoaList();
             for (int i = 0; i < A.asset_idList.size(); i++){
         %>
-                <option value="<%=A.asset_idList.get(i)%>"><%=A.asset_idList.get(i)%>-<%=A.asset_nameList.get(i)%></option>
+                <option value="<%=A.asset_idList.get(i)%>"><%=A.asset_idList.get(i)%> | <%=A.asset_nameList.get(i)%></option>
         <%
             }
         %></select><br>
@@ -59,7 +59,7 @@
         Longitude: <input type="number" id="loc_longiture" name="loc_longiture" min="-180" max="180" step=".0001"><br>
         Enclosed in: <select id="enclosed_asset_id" name="enclosed_asset_id">
         <%
-            A.getAssetList();
+            A.getPropertyList();
             for (int i = 0; i < A.asset_idList.size() + 1; i++) {
                 if (i != A.asset_idList.size()) {
         %>

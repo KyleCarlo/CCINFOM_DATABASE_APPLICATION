@@ -21,7 +21,7 @@
         for (int i = 0; i < Activity.asset_idList.size(); i++){
     %>
         <option value="<%=Activity.asset_idList.get(i)%>,<%=Activity.activity_dateList.get(i)%>">
-            <%=Activity.asset_idList.get(i)%>-<%=Activity.activity_dateList.get(i)%>
+            <%=Activity.asset_idList.get(i)%> | <%=Activity.activity_dateList.get(i)%>
         </option>
     <%
         }
@@ -47,7 +47,7 @@
             for (int i = 0; i < Transaction.trans_hoidList.size(); i++){
         %>
         <option value="<%=Transaction.trans_hoidList.get(i)%>,<%=Transaction.trans_positionList.get(i)%>,<%=Transaction.trans_electiondateList.get(i)%>">
-            <%=Transaction.trans_hoidList.get(i)%>-<%=Transaction.trans_positionList.get(i)%>
+            <%=Transaction.trans_hoidList.get(i)%> | <%=Transaction.trans_positionList.get(i)%>
         </option>
         <%
             }
@@ -60,7 +60,7 @@
         %>
                 <option value="null">None</option>
                 <option value="<%=Transaction.approval_hoid%>,<%=Transaction.approval_position%>,<%=Transaction.approval_electiondate%>">
-                    <%=Transaction.approval_hoid%>-<%=Transaction.approval_position%>
+                    <%=Transaction.approval_hoid%> | <%=Transaction.approval_position%>
                 </option>
     </select><br>
     OR Number:
