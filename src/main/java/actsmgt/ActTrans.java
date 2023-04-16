@@ -29,6 +29,46 @@ public class ActTrans {
 
     public ActTrans() {}
 
+    public int updateAssetActivity(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            System.out.println("asset_id: " + asset_id);
+            System.out.println("transaction_date: " + transaction_date);
+
+            PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE asset_transactions SET trans_hoid = ?, trans_position = ?, trans_electiondate = ?, approval_hoid = ?, approval_position = ?, approval_electiondate = ? WHERE asset_id = ? AND transaction_date = DATE(?);"
+            );
+            System.out.println("trans_hoid ");
+            System.out.println(trans_hoid);
+            System.out.println(trans_position);
+            System.out.println(trans_electiondate);
+            stmt.setInt(1, trans_hoid);
+            stmt.setString(2, trans_position);
+            stmt.setString(3, trans_electiondate);
+            stmt.setInt(4, asset_id);
+            stmt.setString(5, transaction_date);
+            if (approval_hoid == 0) {
+                stmt.setNull(6, Types.INTEGER);
+                stmt.setNull(7, Types.VARCHAR);
+                stmt.setNull(8, Types.VARCHAR);
+            } else {
+                stmt.setInt(6, approval_hoid);
+                stmt.setString(7, approval_position);
+                stmt.setString(8, approval_electiondate);
+            }
+            stmt.executeUpdate();
+            System.out.println("Successful Update");
+            stmt.close();
+            conn.close();
+
+            return 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
     public void revertTrans() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

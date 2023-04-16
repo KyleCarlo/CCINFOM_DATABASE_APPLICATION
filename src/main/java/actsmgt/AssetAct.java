@@ -13,16 +13,68 @@ public class AssetAct {
     public String act_end;
     public Double cost;
     public String status;
-    public int recordAssetActivity(){
-        try{
+    public ArrayList<Integer> asset_idList = new ArrayList<>();
+    public ArrayList<String> activity_dateList = new ArrayList<>();
+
+    public int updateAssetActivity(){
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement(
+                    "UPDATE asset_activity SET activity_description = ?, tent_start = ?, tent_end = ?, act_start = ?, act_end = ?, cost = ?, status = ? " +
+                            "WHERE asset_id = ? AND activity_date = DATE(?);"
+            );
+            stmt.setString(1, activity_description);
+            stmt.setString(2, tent_start);
+            stmt.setString(3, tent_end);
+            stmt.setString(4, act_start);
+            stmt.setString(5, act_end);
+            stmt.setDouble(6, cost);
+            stmt.setString(7, status);
+            stmt.close();
+            conn.close();
+
+            return 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    public int getUpdatableList() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT asset_id, activity_date FROM asset_activity;");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                asset_id = rs.getInt("asset_id");
+                asset_idList.add(asset_id);
+                activity_date = rs.getString("activity_date");
+                activity_dateList.add(activity_date);
+            }
+            return 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+
+    public int recordAssetActivity() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
 
             PreparedStatement stmt = conn.prepareStatement(
-            "INSERT INTO asset_activity (asset_id, activity_date, activity_description, tent_start, tent_end, act_start, act_end, cost, status) " +
-                                    "VALUES (?,         DATE(?),        ?,                  DATE(?),    DATE(?),    ?,       ?,       ?,    ?);"
-            );
+                    "INSERT INTO asset_activity (asset_id, activity_date, activity_description, tent_start, tent_end, act_start, act_end, cost, status) "
+                            +
+                            "VALUES (?,         DATE(?),        ?,                  DATE(?),    DATE(?),    ?,       ?,       ?,    ?);");
             stmt.setInt(1, asset_id);
             stmt.setString(2, activity_date);
 
