@@ -8,17 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Update Asset Activity</title>
-    <script>
-        function showActualDates(status) {
-            var actual_dates = document.getElementById("actual_dates");
-            if (status.value === "S") {
-                actual_dates.style.display = "block";
-            } else {
-                actual_dates.style.display = "none";
-            }
-        }
-    </script>
+    <title>Update an Asset Activity</title>
 </head>
 <body>
 
@@ -47,15 +37,9 @@
         <option value="">Select Status</option>
         <option value="S">Scheduled</option>
         <option value="O">Ongoing</option>
-    </select><br>
 
-    <div id="actual_dates" style="display: none;">
-        Actual Start Date: <input type="date" id="act_start" name="act_start"><br>
-        Actual End Date: <input type="date" id="act_end" name="act_end"><br><br>
-    </div>
-
-    Activity Cost: <input type="number" id="cost" name="cost"><br>
-    Official Receipt: <input type="number" id="ornum" name="ornum"><br><br>
+    Tentative Start Date: <input type="date" id="tent_start" name="tent_start"><br>
+    Tentative End Date: <input type="date" id="tent_end" name="tent_end"><br><br>
 
     <input type="submit" value="Submit Asset">
 

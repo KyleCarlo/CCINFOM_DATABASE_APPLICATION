@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Update Asset Activity (Processing)</title>
 </head>
 <body>
     <jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
@@ -21,14 +21,10 @@
             String status = request.getParameter("status");
             A.status = status;
 
-            String act_start = request.getParameter("act_start");
-            A.act_start = act_start;
-            String act_end = request.getParameter("act_end");
-            A.act_end = act_end;
-
-            int cost = Integer.valueOf(request.getParameter("cost"));
-            A.cost = cost;
-            int ornum = Integer.valueOf(request.getParameter("ornum"));
+            String tent_start = request.getParameter("tent_start");
+            A.tent_start = tent_start;
+            String tent_end = request.getParameter("tent_end");
+            A.tent_end = tent_end;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
