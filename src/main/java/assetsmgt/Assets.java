@@ -30,11 +30,14 @@ public class Assets {
     public ArrayList<String> hoa_nameList = new ArrayList<>();
     public ArrayList<Integer> enclosing_assetList = new ArrayList<>();
 
-    public Assets(){}
-    public int disposeAsset(){
-        try{
+    public Assets() {
+    }
+
+    public int disposeAsset() {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             PreparedStatement stmt = conn.prepareStatement("UPDATE assets SET status = 'X' WHERE asset_id = ?");
             stmt.setInt(1, asset_id);
@@ -42,15 +45,17 @@ public class Assets {
             stmt.close();
             conn.close();
             return 1;
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return 0;
         }
     }
-    public int getDisposableList(){
-        try{
+
+    public int getDisposableList() {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             PreparedStatement stmt = conn.prepareStatement("SELECT *\n" +
                     "FROM assets a\n" +
@@ -68,7 +73,7 @@ public class Assets {
             loc_longitureList.clear();
             hoa_nameList.clear();
             enclosing_assetList.clear();
-            while(rs.next()){
+            while (rs.next()) {
                 asset_id = rs.getInt("asset_id");
                 asset_idList.add(asset_id);
                 asset_name = rs.getString("asset_name");
@@ -97,17 +102,20 @@ public class Assets {
             stmt.close();
             conn.close();
             return 1;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return 0;
         }
     }
-    public int deleteAsset(){
+
+    public int deleteAsset() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
-            PreparedStatement stmt = conn.prepareStatement("UPDATE assets SET enclosing_asset = NULL WHERE enclosing_asset = ?");
+            PreparedStatement stmt = conn
+                    .prepareStatement("UPDATE assets SET enclosing_asset = NULL WHERE enclosing_asset = ?");
             stmt.setInt(1, asset_id);
             stmt.executeUpdate();
 
@@ -123,16 +131,18 @@ public class Assets {
             return 0;
         }
     }
-    public int getDeletableList(){
+
+    public int getDeletableList() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             PreparedStatement stmt = conn.prepareStatement(
                     "SELECT *\n" +
-                    "FROM assets a \n" +
-                    "WHERE a.asset_id NOT IN (SELECT at.asset_id FROM asset_transactions at) " +
-                    "AND a.asset_id NOT IN (SELECT da.asset_id FROM donated_assets da);");
+                            "FROM assets a \n" +
+                            "WHERE a.asset_id NOT IN (SELECT at.asset_id FROM asset_transactions at) " +
+                            "AND a.asset_id NOT IN (SELECT da.asset_id FROM donated_assets da);");
             ResultSet rs = stmt.executeQuery();
             asset_idList.clear();
             asset_nameList.clear();
@@ -146,7 +156,7 @@ public class Assets {
             loc_longitureList.clear();
             hoa_nameList.clear();
             enclosing_assetList.clear();
-            while(rs.next()){
+            while (rs.next()) {
                 asset_id = rs.getInt("asset_id");
                 asset_idList.add(asset_id);
                 asset_name = rs.getString("asset_name");
@@ -180,12 +190,15 @@ public class Assets {
             return 0;
         }
     }
-    public int updateAsset(){
+
+    public int updateAsset() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
-            PreparedStatement stmt = conn.prepareStatement("UPDATE assets SET asset_name = ?, asset_description = ?, acquisition_date = DATE(?), forrent = ?, asset_value = ?, type_asset = ?, status = ?, loc_lattitude = ?, loc_longiture = ?, hoa_name = ?, enclosing_asset = ? WHERE asset_id = ?");
+            PreparedStatement stmt = conn.prepareStatement(
+                    "UPDATE assets SET asset_name = ?, asset_description = ?, acquisition_date = DATE(?), forrent = ?, asset_value = ?, type_asset = ?, status = ?, loc_lattitude = ?, loc_longiture = ?, hoa_name = ?, enclosing_asset = ? WHERE asset_id = ?");
             stmt.setString(1, asset_name);
             stmt.setString(2, asset_description);
             stmt.setString(3, acquisition_date);
@@ -208,15 +221,17 @@ public class Assets {
             stmt.close();
             conn.close();
             return 1;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return 0;
         }
     }
-    public int getAssetList(){
+
+    public int getAssetList() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             PreparedStatement stmt = conn.prepareStatement("SELECT asset_id, asset_name FROM assets;");
             ResultSet rs = stmt.executeQuery();
@@ -224,7 +239,7 @@ public class Assets {
             asset_idList.clear();
             asset_nameList.clear();
 
-            while(rs.next()){
+            while (rs.next()) {
                 asset_id = rs.getInt("asset_id");
                 asset_name = rs.getString("asset_name");
                 asset_idList.add(asset_id);
@@ -240,16 +255,17 @@ public class Assets {
         }
     }
 
-    public int getHoaList(){
+    public int getHoaList() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             PreparedStatement stmt = conn.prepareStatement("SELECT hoa_name FROM hoa");
             ResultSet rs = stmt.executeQuery();
 
             hoa_nameList.clear();
-            while(rs.next()){
+            while (rs.next()) {
                 hoa_name = rs.getString("hoa_name");
                 hoa_nameList.add(hoa_name);
             }
@@ -263,19 +279,22 @@ public class Assets {
         }
     }
 
-    public int registerAsset(){
+    public int registerAsset() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             PreparedStatement stmt = conn.prepareStatement("SELECT MAX(asset_id) AS 'maxID' FROM assets");
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 asset_id = rs.getInt("maxID") + 1;
             }
 
-            stmt = conn.prepareStatement("INSERT INTO assets (`asset_id`, `asset_name`, `asset_description`, `acquisition_date`, `forrent`, `asset_value`, `type_asset`, `status`, `loc_lattitude`, `loc_longiture`, `hoa_name`, `enclosing_asset`) " +
-                                             "VALUES (?, ?, ?, DATE(?), ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement(
+                    "INSERT INTO assets (`asset_id`, `asset_name`, `asset_description`, `acquisition_date`, `forrent`, `asset_value`, `type_asset`, `status`, `loc_lattitude`, `loc_longiture`, `hoa_name`, `enclosing_asset`) "
+                            +
+                            "VALUES (?, ?, ?, DATE(?), ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setInt(1, asset_id);
             stmt.setString(2, asset_name);
             stmt.setString(3, asset_description);
@@ -296,13 +315,13 @@ public class Assets {
             stmt.close();
             conn.close();
             return 1;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return 0;
         }
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         Assets a = new Assets();
         a.hoa_name = "Test HOA";
         a.asset_name = "Test Asset";

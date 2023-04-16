@@ -15,7 +15,90 @@ public class AssetAct {
     public String status;
     public ArrayList<Integer> asset_idList = new ArrayList<>();
     public ArrayList<String> activity_dateList = new ArrayList<>();
+    public ArrayList<String> activity_descriptionList = new ArrayList<>();
+    public ArrayList<String> tent_startList = new ArrayList<>();
+    public ArrayList<String> tent_endList = new ArrayList<>();
+    public ArrayList<String> act_startList = new ArrayList<>();
+    public ArrayList<String> act_endList = new ArrayList<>();
+    public ArrayList<Double> costList = new ArrayList<>();
+    public ArrayList<String> statusList = new ArrayList<>();
+    public int deleteAssetActivity(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement(
+            "DELETE FROM asset_activity WHERE asset_id = ? AND activity_date = DATE(?);"
+            );
+            stmt.setInt(1, asset_id);
+            stmt.setString(2, activity_date);
+            stmt.executeUpdate();
 
+            stmt = conn.prepareStatement("UPDATE asset_transactions SET isdeleted = 1 WHERE asset_id = ? AND transaction_date = DATE(?);");
+            stmt.setInt(1, asset_id);
+            stmt.setString(2, activity_date);
+            stmt.executeUpdate();
+
+            return 1;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    public int getDeletableActivityList(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT aa.*\n" +
+                    "FROM asset_activity aa\n" +
+                    "JOIN asset_transactions at\n" +
+                    "ON aa.asset_id = at.asset_id AND aa.activity_date = at.transaction_date\n" +
+                    "WHERE at.approval_position = 'President';"
+            );
+
+            ResultSet rs = stmt.executeQuery();
+
+            asset_idList.clear();
+            activity_dateList.clear();
+            activity_descriptionList.clear();
+            tent_startList.clear();
+            tent_endList.clear();
+            act_startList.clear();
+            act_endList.clear();
+            costList.clear();
+            statusList.clear();
+
+            while(rs.next()){
+                int asset_id = rs.getInt("asset_id");
+                String activity_date = rs.getString("activity_date");
+                String activity_description = rs.getString("activity_description");
+                String tent_start = rs.getString("tent_start");
+                String tent_end = rs.getString("tent_end");
+                String act_start = rs.getString("act_start");
+                String act_end = rs.getString("act_end");
+                Double cost = rs.getDouble("cost");
+                String status = rs.getString("status");
+                asset_idList.add(asset_id);
+                activity_dateList.add(activity_date);
+                activity_descriptionList.add(activity_description);
+                tent_startList.add(tent_start);
+                tent_endList.add(tent_end);
+                act_startList.add(act_start);
+                act_endList.add(act_end);
+                costList.add(cost);
+                statusList.add(status);
+            }
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
     public int updateAssetActivity(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
