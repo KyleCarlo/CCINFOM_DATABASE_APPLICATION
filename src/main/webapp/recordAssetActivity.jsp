@@ -9,6 +9,7 @@
 <html>
 <head>
     <title> Record Asset Activity </title>
+    <link rel="stylesheet" type="text/css" href="styles/recordAssetActivity_style.css"/>
 </head>
 <body>
     <form action="recordAssetActivity_processing.jsp">

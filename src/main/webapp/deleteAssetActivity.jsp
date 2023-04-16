@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Delete Asset Activity</title>
+    <link rel="stylesheet" type="text/css" href="styles/deleteAssetActivity_style.css"/>
 </head>
 <body>
 <table>
@@ -56,6 +57,9 @@
     %>
 </table><br>
 <form action="deleteAssetActivity_processing.jsp">
+
+    <h1>Delete Asset Activity</h1>
+
     Select Activity to Delete: <select id="delete_activity" name="delete_activity">
     <%
         for (int i = 0; i < Activity.asset_idList.size(); i++){

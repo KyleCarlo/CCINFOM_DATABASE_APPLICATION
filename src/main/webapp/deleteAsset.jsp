@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Asset Deletion</title>
+    <link rel="stylesheet" type="text/css" href="styles/deleteAsset_style.css"/>
 </head>
 <body>
 

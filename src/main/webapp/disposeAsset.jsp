@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Asset Disposal</title>
+    <link rel="stylesheet" type="text/css" href="styles/disposeAsset_style.css"/>
 </head>
 <body>
 <table>
@@ -67,6 +68,9 @@
     %>
 </table><br>
 <form action="disposeAsset_processing.jsp">
+
+    <h1>Dispose Asset</h1>
+
     Select Asset ID to Dispose: <select id="delete_asset_id" name="delete_asset_id">
     <%
         for(int i = 0; i < A.asset_idList.size(); i++){

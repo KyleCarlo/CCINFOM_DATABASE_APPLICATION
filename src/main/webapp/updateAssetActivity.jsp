@@ -9,12 +9,16 @@
 <html>
 <head>
     <title>Update Asset Activity</title>
+    <link rel="stylesheet" type="text/css" href="styles/updateAssetActivity_style.css"/>
 </head>
 <body>
 
 <form action="updateAssetActivity_processing.jsp">
     <jsp:useBean id="Activity" class="actsmgt.AssetAct" scope='session'/>
     <jsp:useBean id="Transaction" class="actsmgt.ActTrans" scope="session"/>
+
+    <h1>Update Asset Activity</h1>
+
     Select Asset:<select id="asset_id" name="asset_id">
     <%
         Activity.getUpdatableList();
