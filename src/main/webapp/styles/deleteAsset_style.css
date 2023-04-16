@@ -21,7 +21,7 @@ h1 {
 
 /* Table styles */
 table {
-    background-color: #EDE3FF;
+    background-color: pink;
     border-collapse: collapse;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 30px auto;
@@ -34,11 +34,12 @@ table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
+    color: black;
 }
 
 table th {
     background-color: #480082;
-    color: #fff;
+    color: white;
     text-transform: uppercase;
 }
 
