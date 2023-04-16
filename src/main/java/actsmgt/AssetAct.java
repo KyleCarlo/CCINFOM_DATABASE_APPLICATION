@@ -26,13 +26,38 @@ public class AssetAct {
                     "UPDATE asset_activity SET activity_description = ?, tent_start = ?, tent_end = ?, act_start = ?, act_end = ?, cost = ?, status = ? " +
                             "WHERE asset_id = ? AND activity_date = DATE(?);"
             );
+
             stmt.setString(1, activity_description);
-            stmt.setString(2, tent_start);
-            stmt.setString(3, tent_end);
-            stmt.setString(4, act_start);
-            stmt.setString(5, act_end);
-            stmt.setDouble(6, cost);
+            if (tent_start.equals("")) {
+                stmt.setNull(2, Types.VARCHAR);
+            } else {
+                stmt.setString(2, tent_start);
+            }
+            if (tent_end.equals("")) {
+                stmt.setNull(3, Types.VARCHAR);
+            } else {
+                stmt.setString(3, tent_end);
+            }
+            if (act_start.equals("")) {
+                stmt.setNull(4, Types.VARCHAR);
+            } else {
+                stmt.setString(4, act_start);
+            }
+            if (act_end.equals("")) {
+                stmt.setNull(5, Types.VARCHAR);
+            } else {
+                stmt.setString(5, act_end);
+            }
+            if (cost == -1.0) {
+                stmt.setNull(6, Types.DOUBLE);
+            } else {
+                stmt.setDouble(6, cost);
+            }
             stmt.setString(7, status);
+            stmt.setInt(8, asset_id);
+            stmt.setString(9, activity_date);
+            stmt.executeUpdate();
+            System.out.println("Successful update");
             stmt.close();
             conn.close();
 
@@ -51,6 +76,10 @@ public class AssetAct {
             PreparedStatement stmt = conn.prepareStatement(
                     "SELECT asset_id, activity_date FROM asset_activity;");
             ResultSet rs = stmt.executeQuery();
+
+            asset_idList.clear();
+            activity_dateList.clear();
+
             while (rs.next()) {
                 asset_id = rs.getInt("asset_id");
                 asset_idList.add(asset_id);

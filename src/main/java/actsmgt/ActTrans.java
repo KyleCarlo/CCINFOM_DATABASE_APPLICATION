@@ -9,6 +9,7 @@ public class ActTrans {
     public int trans_hoid;
     public String trans_position;
     public String trans_electiondate;
+
     public int isdeleted;
     public int approval_hoid;
     public String approval_position;
@@ -28,38 +29,77 @@ public class ActTrans {
     public ArrayList<String> transaction_typeList = new ArrayList<>();
 
     public ActTrans() {}
-
+    public int getOrNumList(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT r.ornum FROM ref_ornumbers r " +
+                    "WHERE r.ornum NOT IN " +
+                    "(SELECT ornum FROM asset_transactions WHERE ornum IS NOT NULL);"
+            );
+            ResultSet rs = stmt.executeQuery();
+            ornumList.clear();
+            while (rs.next()){
+                int ornum = rs.getInt("ornum");
+                ornumList.add(ornum);
+            }
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
     public int updateAssetActivity(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
+            System.out.println("TARGETS INSIDE ACTSTRANS");
             System.out.println("asset_id: " + asset_id);
             System.out.println("transaction_date: " + transaction_date);
 
             PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE asset_transactions SET trans_hoid = ?, trans_position = ?, trans_electiondate = ?, approval_hoid = ?, approval_position = ?, approval_electiondate = ? WHERE asset_id = ? AND transaction_date = DATE(?);"
-            );
-            System.out.println("trans_hoid ");
-            System.out.println(trans_hoid);
-            System.out.println(trans_position);
-            System.out.println(trans_electiondate);
+                "UPDATE asset_transactions SET " +
+                        "trans_hoid = ?, " +
+                        "trans_position = ?, " +
+                        "trans_electiondate = DATE (?), " +
+                        "approval_hoid = ?, " +
+                        "approval_position = ?, " +
+                        "approval_electiondate = DATE (?), " +
+                        "ornum = ? " +
+                        "WHERE asset_id = ? AND transaction_date = DATE(?);"
+                );
             stmt.setInt(1, trans_hoid);
             stmt.setString(2, trans_position);
             stmt.setString(3, trans_electiondate);
-            stmt.setInt(4, asset_id);
-            stmt.setString(5, transaction_date);
             if (approval_hoid == 0) {
-                stmt.setNull(6, Types.INTEGER);
-                stmt.setNull(7, Types.VARCHAR);
-                stmt.setNull(8, Types.VARCHAR);
+                stmt.setNull(4, Types.INTEGER);
+                stmt.setNull(5, Types.VARCHAR);
+                stmt.setNull(6, Types.VARCHAR);
             } else {
-                stmt.setInt(6, approval_hoid);
-                stmt.setString(7, approval_position);
-                stmt.setString(8, approval_electiondate);
+                System.out.println("approval null");
+                stmt.setInt(4, approval_hoid);
+                stmt.setString(5, approval_position);
+                stmt.setString(6, approval_electiondate);
             }
+            if (ornum == 0) {
+                stmt.setNull(7, Types.INTEGER);
+            } else {
+                stmt.setInt(7, ornum);
+            }
+
+            stmt.setInt(8, asset_id);
+
+            stmt.setString(9, transaction_date);
+
+
+
             stmt.executeUpdate();
-            System.out.println("Successful Update");
+            System.out.println("Successful update");
             stmt.close();
             conn.close();
 
@@ -109,6 +149,34 @@ public class ActTrans {
             System.out.println("Successful Insertion to Transaction");
             return 1;
         } catch (Exception e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    public int getPresHoid(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT o.ho_id AS 'id', o.position AS 'position', o.election_date AS 'date'\n" +
+                    "FROM officer o \n" +
+                    "WHERE o.end_date >= DATE(NOW()) AND o.position = 'President';");
+            ResultSet rs = stmt.executeQuery();
+
+            approval_hoidList.clear();
+            approval_positionList.clear();
+            approval_positionList.clear();
+
+            while(rs.next()) {
+                approval_hoid = rs.getInt("id");
+                approval_position = rs.getString("position");
+                approval_electiondate = rs.getString("date");
+            }
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch(Exception e) {
             System.out.println(e.getMessage());
             return 0;
         }
