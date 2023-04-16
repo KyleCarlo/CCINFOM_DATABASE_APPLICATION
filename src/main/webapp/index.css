@@ -14,10 +14,10 @@ body {
 
 h1 {
     text-align: center;
+    text-shadow: 3px 2px 0px white;
     color: #480082;
     font-size: 70px;
     font-weight: 900;
-    text-shadow: black;
     text-outline: black 15px;
     margin-top: 30px;
     margin-bottom: 30px;
