@@ -11,45 +11,46 @@
     <title>Complete Asset Activity (Processing)</title>
 </head>
 <body>
-<jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
-<%
-    try {
 
-        int asset_id = Integer.valueOf(request.getParameter("asset_id"));
-        A.asset_id = asset_id;
+    <jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
+    <%
+        try {
 
-        String status = request.getParameter("status");
-        A.status = status;
+            int asset_id = Integer.valueOf(request.getParameter("asset_id"));
+            A.asset_id = asset_id;
 
-        String tent_start = request.getParameter("tent_start");
-        A.tent_start = tent_start;
-        String tent_end = request.getParameter("tent_end");
-        A.tent_end = tent_end;
+            String status = request.getParameter("status");
+            A.status = status;
 
-        int cost = Integer.valueOf(request.getParameter("cost"));
-        A.cost = cost;
-        int ornum = Integer.valueOf(request.getParameter("ornum"));
-        A.ornum = ornum;
+            String tent_start = request.getParameter("tent_start");
+            A.tent_start = tent_start;
+            String tent_end = request.getParameter("tent_end");
+            A.tent_end = tent_end;
 
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-    }
+            int cost = Integer.valueOf(request.getParameter("cost"));
+            A.cost = cost;
+            int ornum = Integer.valueOf(request.getParameter("ornum"));
+            A.ornum = ornum;
 
-    int result = A.updateAssetActivity();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
-    if (result == 1) {
-%>
-<h1>Asset Activity Successfully Marked as Complete!</h1>
-<%
-} else {
-%>
-<h1>Asset Activity Completion Failed!</h1>
-<%
-    }
-%>
-<form action="index.html">
-    <input type="submit" value="Return to Menu">
-</form>
+        int result = A.updateAssetActivity();
+
+        if (result == 1) {
+    %>
+    <h1>Asset Activity Successfully Marked as Complete!</h1>
+    <%
+    } else {
+    %>
+    <h1>Asset Activity Completion Failed!</h1>
+    <%
+        }
+    %>
+    <form action="index.html">
+        <input type="submit" value="Return to Menu">
+    </form>
 </body>
 </html>
 
