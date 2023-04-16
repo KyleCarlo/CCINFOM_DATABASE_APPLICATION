@@ -38,7 +38,7 @@
     <%
     } else {
     %>
-    <h1>Asset Registration Failed!</h1>
+    <h1>Asset Activity Update Failed!</h1>
     <%
         }
     %>

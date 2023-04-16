@@ -207,7 +207,7 @@ public class assets {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
-            PreparedStatement stmt = conn.prepareStatement("SELECT aa.asset_id, aa.status, aa.tent_start, aa.tent_end, aa.cost, at.ornum " +
+            PreparedStatement stmt = conn.prepareStatement("SELECT aa.asset_id, aa.status, aa.tent_start, aa.tent_end " +
                     "FROM asset_activity aa " +
                     "    JOIN asset_transactions at ON aa.asset_id=at.asset_id " +
                     ";");
@@ -220,6 +220,38 @@ public class assets {
             stmt.setString(2, status);
             stmt.setString(3, tent_start);
             stmt.setString(4, tent_end);
+
+            stmt.executeUpdate();
+
+            System.out.println("Entered2");
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    public int completeAssetActivity(){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoadb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement stmt = conn.prepareStatement("SELECT aa.asset_id, aa.status, aa.act_start, aa.act_end, aa.cost, at.ornum " +
+                    "FROM asset_activity aa " +
+                    "    JOIN asset_transactions at ON aa.asset_id=at.asset_id " +
+                    ";");
+            ResultSet rs = stmt.executeQuery();
+
+            stmt = conn.prepareStatement("INSERT INTO assets (`asset_id`, `status`,`act_start`, `act_end`) " +
+                    "VALUES (?, ?, DATE(?), DATE(?), ?, ?)");
+
+            stmt.setInt(1, asset_id);
+            stmt.setString(2, status);
+            stmt.setString(3, act_start);
+            stmt.setString(4, act_end);
+            stmt.setInt(5, cost);
+            stmt.setInt(6, ornum);
 
             stmt.executeUpdate();
 
