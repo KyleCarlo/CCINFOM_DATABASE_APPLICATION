@@ -8,46 +8,67 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Record an Asset Activity</title>
+    <title>Record Asset Activity</title>
 </head>
 <body>
 
-    <jsp:useBean id="A" class="assetsmgt.Assets" scope="session"/>
+    <jsp:useBean id="Transaction" class="actsmgt.ActTrans" scope="session"/>
+    <jsp:useBean id="Activity" class="actsmgt.AssetAct" scope="session"/>
     <%
         try {
-
-            String hoa_name = request.getParameter("hoa_name");
-            A.hoa_name = hoa_name;
+            Transaction.getTransHoidList();
             int asset_id = Integer.valueOf(request.getParameter("asset_id"));
-            A.asset_id = asset_id;
-
+            Activity.asset_id = asset_id;
+            Transaction.asset_id = asset_id;
             String activity_date = request.getParameter("activity_date");
-            A.activity_date = activity_date;
+            Activity.activity_date = activity_date;
+            Transaction.transaction_date = activity_date;
+
             String activity_description = request.getParameter("activity_description");
-            A.activity_description = activity_description;
-            String auth_officer = request.getParameter("auth_officer");
-            A.auth_officer = auth_officer;
+            Activity.activity_description = activity_description;
+
+            String trans_hoid = request.getParameter("trans_hoid");
+            String[] sep = trans_hoid.split(",", 3);
+            Transaction.trans_hoid = Integer.valueOf(sep[0]);
+            Transaction.trans_position = sep[1];
+            Transaction.trans_electiondate = sep[2];
+
             String tent_start = request.getParameter("tent_start");
-            A.tent_start = tent_start;
+            Activity.tent_start = tent_start;
+
             String tent_end = request.getParameter("tent_end");
-            A.tent_end = tent_end;
+            Activity.tent_end = tent_end;
+
             String act_start = request.getParameter("act_start");
-            A.act_start = act_start;
+            Activity.act_start = act_start;
+
             String act_end = request.getParameter("act_end");
-            A.act_end = act_end;
-            int cost = Integer.valueOf(request.getParameter("cost"));
-            A.cost = cost;
-            int ornum = Integer.valueOf(request.getParameter("ornum"));
+            Activity.act_end = act_end;
+
+            String cost = request.getParameter("cost");
+            if (cost == "") {
+                Activity.cost = -1.0;
+            } else {
+                Activity.cost = Double.valueOf(cost);
+            }
+
             String status = request.getParameter("status");
-            A.status = status;
+            Activity.status = status;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        int result = Transaction.recordAssetActivity();
+        int result1 = 0;
 
-        int result = A.registerAsset();
+        if (result == 1){
+            result1 = Activity.recordAssetActivity();
+            if (result1 == 0) {
+                Transaction.revertTrans();
+            }
+        }
 
-        if (result == 1) {
+        if (result == 1 && result1 == 1) {
     %>
     <h1>Asset Successfully Registered!</h1>
     <%
