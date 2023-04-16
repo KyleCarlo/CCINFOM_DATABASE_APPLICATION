@@ -39,11 +39,11 @@
 
     if (result == 1) {
 %>
-<h1>Asset Activity Successfully Updated!</h1>
+<h1>Asset Activity Successfully Marked as Complete!</h1>
 <%
 } else {
 %>
-<h1>Asset Activity Update Failed!</h1>
+<h1>Asset Activity Completion Failed!</h1>
 <%
     }
 %>
