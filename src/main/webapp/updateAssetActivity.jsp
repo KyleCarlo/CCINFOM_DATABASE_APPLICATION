@@ -12,7 +12,10 @@
 </head>
 <body>
 
-<form action="updateAssetActivity_processing.jsp">
+<jsp:useBean id="A" class="assetsmgt.assets" scope="session"/>
+
+<form>
+    action="updateAssetActivity_processing.jsp"
 
     Select Asset:
     <select id="asset_id" name="asset_id">
@@ -37,6 +40,8 @@
         <option value="">Select Status</option>
         <option value="S">Scheduled</option>
         <option value="O">Ongoing</option>
+
+    </select><br>
 
     Tentative Start Date: <input type="date" id="tent_start" name="tent_start"><br>
     Tentative End Date: <input type="date" id="tent_end" name="tent_end"><br><br>

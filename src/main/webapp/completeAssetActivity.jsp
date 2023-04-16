@@ -23,7 +23,8 @@
 </head>
 <body>
 
-<form action="updateAssetActivity_processing.jsp">
+<form>
+    action="updateAssetActivity_processing.jsp"
 
     Select Asset:
     <select id="asset_id" name="asset_id">
